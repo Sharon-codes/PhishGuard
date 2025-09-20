@@ -3,7 +3,11 @@
   "builds": [
     {
       "src": "backend/app.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb",
+        "runtime": "python3.9"
+      }
     },
     {
       "src": "frontend/package.json",
@@ -25,11 +29,6 @@
   ],
   "env": {
     "GEMINI_API_KEY": "@gemini_api_key"
-  },
-  "functions": {
-    "backend/app.py": {
-      "maxDuration": 30
-    }
   },
   "outputDirectory": "frontend/dist"
 }
