@@ -4,6 +4,8 @@
   "description": "A defensive cybersecurity analysis engine.",
   "main": "index.js",
   "scripts": {
+    "vercel-build": "cd frontend && npm install && npm run build",
+    "build": "cd frontend && npm install && npm run build",
     "install-backend": "python -m venv backend\\venv; backend\\venv\\Scripts\\python -m pip install -r backend\\requirements.txt",
     "install-frontend": "npm --prefix frontend install",
     "install-all": "npm run install-backend; npm run install-frontend",
@@ -16,9 +18,12 @@
     "phishing",
     "analysis",
     "flask",
-    "react"
+    "react",
+    "google-gemini",
+    "ai",
+    "vercel"
   ],
-  "author": "AI Assistant",
+  "author": "PhishGuard Team",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.0"

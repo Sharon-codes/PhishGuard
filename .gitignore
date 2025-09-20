@@ -1,22 +1,27 @@
-# Node modules
-/node_modules
-/frontend/node_modules
-
-# Python virtual environment
-/backend/venv
-.venv
-.env
-venv/
+# Dependencies
+node_modules/
 __pycache__/
 *.pyc
+backend/venv/
 
-# IDE specific
-.idea/
+# Environment variables
+.env
+backend/.env
+
+# Build outputs
+frontend/dist/
+frontend/build/
+
+# IDE
 .vscode/
+.idea/
 
-# Build artifacts
-/frontend/dist
-
-# OS specific
+# OS
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
+# Vercel
+.vercel

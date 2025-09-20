@@ -8,7 +8,9 @@ from ai_service import gemini_service
 from url_resolver import url_resolver
 
 app = Flask(__name__)
-CORS(app)
+
+# Configure CORS for production and development
+CORS(app, origins=["*"])  # Will be updated after deployment
 
 def extract_url_and_message(raw_input):
     """Extract URL from raw input if not provided in enrichment"""
@@ -450,5 +452,11 @@ def get_status():
         "version": "2.0.0-ai"
     })
 
+# Vercel serverless function handler
+def handler(request):
+    """Vercel serverless function handler"""
+    return app
+
+# For local development
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
