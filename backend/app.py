@@ -227,7 +227,7 @@ def get_ai_reasoning(redacted_message, extracted_url, enrichment, url_resolution
     except Exception as e:
         print(f"Error in AI reasoning: {str(e)}")
         # Fallback to basic analysis
-        return {
+    return {
             "attack_type": "UNKNOWN",
             "llm_score": 15,
             "confidence_pct": 40,
@@ -242,7 +242,7 @@ def get_ai_reasoning(redacted_message, extracted_url, enrichment, url_resolution
             "recommended_action": "VERIFY",
             "risk_level": "LOW",
             "is_ai_powered": False
-        }
+    }
 
 def determine_action(final_score, safe_browsing_verdict, blacklist_matches, platform_hint):
     """Determine definitive action based on score and evidence"""
@@ -351,14 +351,14 @@ def analyze():
     else:
         # Fallback to original scoring method
         final_score = round(min(100, 0.55 * heuristic_score + 0.45 * ai_result['llm_score']))
-        
-        # Determine risk level
-        if final_score >= 70:
-            risk_level = "HIGH"
-        elif final_score >= 30:
-            risk_level = "MEDIUM"
-        else:
-            risk_level = "LOW"
+    
+    # Determine risk level
+    if final_score >= 70:
+        risk_level = "HIGH"
+    elif final_score >= 30:
+        risk_level = "MEDIUM"
+    else:
+        risk_level = "LOW"
     
     # Determine action (consider AI recommendation if available)
     if ai_result.get('is_ai_powered', False) and ai_result.get('recommended_action'):
@@ -377,12 +377,12 @@ def analyze():
             platform_hint
         ))
     else:
-        action = determine_action(
-            final_score,
-            enrichment.get('safe_browsing', {}).get('verdict'),
-            enrichment.get('blacklist_matches'),
-            platform_hint
-        )
+    action = determine_action(
+        final_score,
+        enrichment.get('safe_browsing', {}).get('verdict'),
+        enrichment.get('blacklist_matches'),
+        platform_hint
+    )
     
     # Build response
     response = {
@@ -451,11 +451,6 @@ def get_status():
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "version": "2.0.0-ai"
     })
-
-# Vercel serverless function handler
-def handler(request):
-    """Vercel serverless function handler"""
-    return app
 
 # For local development
 if __name__ == '__main__':
