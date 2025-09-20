@@ -10,10 +10,10 @@
       }
     },
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
+      "src": "package.json",
+      "use": "@vercel/node",
       "config": {
-        "distDir": "frontend/dist"
+        "buildCommand": "npm run vercel-build"
       }
     }
   ],
@@ -26,6 +26,5 @@
       "src": "/(.*)",
       "dest": "frontend/dist/$1"
     }
-  ],
-  "outputDirectory": "frontend/dist"
+  ]
 }
