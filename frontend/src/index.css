@@ -1,0 +1,33 @@
+:root {
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
+  /* Colors */
+  --bg: #1a1a1a;
+  --bg-soft: #2a2a2e;
+  --bg-card: #242428;
+  --border: #3c3c43;
+  --text: #f0f0f0;
+  --text-muted: #8e8e93;
+  --brand: #007aff;
+  --brand-light: #3392ff;
+  
+  --risk-high: #ff3b30;
+  --risk-medium: #ff9500;
+  --risk-low: #34c759;
+  
+  --radius: 0.75rem;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
