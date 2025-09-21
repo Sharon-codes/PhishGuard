@@ -4,6 +4,8 @@ from urllib.parse import urlparse, parse_qs
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime, timezone
+import traceback
+from werkzeug.exceptions import HTTPException
 import os
 import sys
 
@@ -19,6 +21,15 @@ app = Flask(__name__)
 
 # Configure CORS for production and development
 CORS(app, origins=["*"])  # Will be updated after deployment
+
+# Global error handler to avoid opaque 500s
+@app.errorhandler(Exception)
+def handle_unexpected_error(error):
+    if isinstance(error, HTTPException):
+        return jsonify({"error": error.description}), error.code
+    # Log full traceback to server logs
+    print("[Unhandled Exception]", traceback.format_exc())
+    return jsonify({"error": "Internal Server Error", "detail": str(error)}), 500
 
 def extract_url_and_message(raw_input):
     """Extract URL from raw input if not provided in enrichment"""
