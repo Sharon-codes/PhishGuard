@@ -31,6 +31,12 @@ class GeminiAIService:
                 self.enabled = False
                 return
 
+            # Disable AI when running on Vercel unless explicitly enabled
+            if os.getenv('VERCEL', '').lower() in ('1', 'true', 'yes') and os.getenv('ENABLE_GEMINI_AI', 'false').lower() not in ('1','true','yes'):
+                print("Running on Vercel without ENABLE_GEMINI_AI=true. Disabling AI to avoid latency/timeouts.")
+                self.enabled = False
+                return
+
             self.api_key = os.getenv('GEMINI_API_KEY')
             if not self.api_key or self.api_key == 'your_gemini_api_key_here':
                 print("Warning: GEMINI_API_KEY not set or using placeholder. AI features will be disabled.")

@@ -53,7 +53,7 @@ class URLResolver:
         except:
             return False
     
-    def resolve_url(self, url: str, timeout: int = 10, max_redirects: int = 5) -> Dict:
+    def resolve_url(self, url: str, timeout: int = 3, max_redirects: int = 3) -> Dict:
         """
         Resolve a URL and get information about the final destination
         
@@ -143,7 +143,7 @@ class URLResolver:
                     # Get the actual page content (first 1KB) to extract title
                     page_response = self.session.get(
                         result['final_url'], 
-                        timeout=timeout,
+                        timeout=max(1, min(timeout, 3)),
                         stream=True
                     )
                     
