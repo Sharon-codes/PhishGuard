@@ -5,8 +5,15 @@ Integrates Google Gemini AI for advanced phishing detection
 
 import os
 import json
-import google.generativeai as genai
 from dotenv import load_dotenv
+
+# Optional import: make Google Generative AI dependency optional in prod
+try:
+    import google.generativeai as genai  # type: ignore
+    _GENAI_AVAILABLE = True
+except ImportError:
+    genai = None  # type: ignore
+    _GENAI_AVAILABLE = False
 from typing import Dict, List, Optional, Tuple
 
 # Load environment variables
@@ -18,6 +25,12 @@ class GeminiAIService:
     def __init__(self):
         """Initialize the Gemini AI service"""
         try:
+            # If SDK missing, disable AI cleanly
+            if not _GENAI_AVAILABLE:
+                print("google-generativeai not installed. AI features disabled.")
+                self.enabled = False
+                return
+
             self.api_key = os.getenv('GEMINI_API_KEY')
             if not self.api_key or self.api_key == 'your_gemini_api_key_here':
                 print("Warning: GEMINI_API_KEY not set or using placeholder. AI features will be disabled.")
@@ -29,10 +42,6 @@ class GeminiAIService:
             self.model = genai.GenerativeModel('gemini-1.5-flash')
             self.enabled = True
             print("Gemini AI service initialized successfully")
-        except ImportError as e:
-            print(f"ImportError: {str(e)}")
-            print("Please install google-generativeai: pip install google-generativeai")
-            self.enabled = False
         except Exception as e:
             print(f"Error initializing Gemini AI: {str(e)}")
             print("AI features will be disabled, falling back to rule-based analysis")

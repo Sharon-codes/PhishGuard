@@ -4,6 +4,14 @@ from urllib.parse import urlparse, parse_qs
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime, timezone
+import os
+import sys
+
+# Ensure this file's directory (backend) is on sys.path for imports in serverless/prod
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+if CURRENT_DIR not in sys.path:
+    sys.path.insert(0, CURRENT_DIR)
+
 from ai_service import gemini_service
 from url_resolver import url_resolver
 
