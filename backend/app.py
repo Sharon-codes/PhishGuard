@@ -377,12 +377,12 @@ def analyze():
             platform_hint
         ))
     else:
-    action = determine_action(
-        final_score,
-        enrichment.get('safe_browsing', {}).get('verdict'),
-        enrichment.get('blacklist_matches'),
-        platform_hint
-    )
+        action = determine_action(
+            final_score,
+            enrichment.get('safe_browsing', {}).get('verdict'),
+            enrichment.get('blacklist_matches'),
+            platform_hint
+        )
     
     # Build response
     response = {
